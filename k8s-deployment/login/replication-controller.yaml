@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: login
+spec:
+  replicas: 2
+  selector:
+    app: login
+  template:
+    metadata:
+      name: login
+      labels:
+        app: login
+    spec:
+      containers:
+      - name: login
+        image: vivekmore5292/login:v1
+        ports:
+        - containerPort: 80

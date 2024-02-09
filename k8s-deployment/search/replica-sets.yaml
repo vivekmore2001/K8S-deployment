@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: search-replica-set
+  labels:
+    app: search-pod-set
+    tier: search
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: search
+  template:
+    metadata:
+      labels:
+        tier: search
+    spec:
+      containers:
+      - name: search-pod
+        image: vivekmore5292/search:v1
