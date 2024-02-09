@@ -1,0 +1,74 @@
+
+root@DESKTOP-PDOJQQA:submit# kubectl get svc -o wide
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   56m   <none>
+
+
+
+root@DESKTOP-PDOJQQA:submit# kubectl describe replicationcontroller
+Name:         login
+Namespace:    default
+Selector:     app=login
+Labels:       app=login
+Annotations:  <none>
+Replicas:     2 current / 2 desired
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=login
+  Containers:
+   login:
+    Image:        vivekmore5292/login:v1
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events:
+  Type    Reason            Age   From                    Message
+  ----    ------            ----  ----                    -------
+  Normal  SuccessfulCreate  32m   replication-controller  Created pod: login-kjn4x
+  Normal  SuccessfulCreate  32m   replication-controller  Created pod: login-5j78w
+
+
+Name:         login-repl-ctrl
+Namespace:    default
+Selector:     app=login
+Labels:       app=login
+Annotations:  <none>
+Replicas:     0 current / 0 desired
+Pods Status:  0 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=login
+  Containers:
+   login-pod:
+    Image:        vivekmore5292/login:v1
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Events:           <none>
+
+
+
+root@DESKTOP-PDOJQQA:submit# kubectl get pod
+NAME                             READY   STATUS    RESTARTS   AGE
+dashboard-pod                    1/1     Running   0          55m
+login-5j78w                      1/1     Running   0          33m
+login-kjn4x                      1/1     Running   0          33m
+search-replica-set-47fqk         1/1     Running   0          13m
+search-replica-set-9d5lr         1/1     Running   0          13m
+submit-deploy-54bbbf8776-7bjkh   1/1     Running   0          10m
+submit-deploy-54bbbf8776-bvs9g   1/1     Running   0          10m
+
+
+
+root@DESKTOP-PDOJQQA:submit# kubectl get svc -o wide
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   64m   <none>
+
+
+
+root@DESKTOP-PDOJQQA:search# kubectl apply -f replica-sets.yaml
+replicaset.apps/search-replica-set created
+
