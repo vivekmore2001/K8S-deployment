@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haproxy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: haproxy-pod
+  template:
+    metadata:
+      labels:
+        app: haproxy-pod
+    spec:
+      containers:
+        - name: ha-proxy
+          image: vivekmore5292/my_proxy:v1
+          ports:
+              - containerPort: 8080
+
+    
